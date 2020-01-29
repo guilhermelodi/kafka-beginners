@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.guilhermelodi'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.4.0'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+}

@@ -1,0 +1,34 @@
+HELP.md
+
+# Gradle
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+# File-based project format
+*.iws
+
+# STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# IntelliJ
+out/
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
