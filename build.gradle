@@ -2,16 +2,41 @@ plugins {
     id 'java'
 }
 
-group 'com.github.guilhermelodi'
-version '1.0'
+ext {
+    kafkaClientVersion = "2.4.0"
+    slf4jVersion = "1.7.30"
+    twitterCoreVersion = "2.2.0"
 
-sourceCompatibility = 1.8
+    projects = ["kafka-basics", "kafka-producer-twitter"]
+}
+
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '2.4.0'
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+subprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    group 'com.github.guilhermelodi'
+    version '1.0'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        compile("org.apache.kafka:kafka-clients:${kafkaClientVersion}")
+        compile("org.slf4j:slf4j-simple:${slf4jVersion}")
+    }
+}
+
+project(':kafka-producer-twitter') {
+    dependencies {
+        compile("com.twitter:hbc-core:${twitterCoreVersion}")
+    }
 }

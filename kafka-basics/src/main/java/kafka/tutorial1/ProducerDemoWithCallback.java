@@ -1,18 +1,21 @@
-package com.github.guilhermelodi.kafka.tutorial1;
+package kafka.tutorial1;
 
-import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Callback;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
-import java.util.concurrent.ExecutionException;
 
-public class ProducerDemoKeys {
+public class ProducerDemoWithCallback {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
 
-        final Logger log = LoggerFactory.getLogger(ProducerDemoKeys.class);
+        Logger log = LoggerFactory.getLogger(ProducerDemoWithCallback.class);
 
         final String bootstrapServers = "localhost:9092";
 
@@ -24,26 +27,10 @@ public class ProducerDemoKeys {
 
         // Create the producer
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
-        // id-0 is going to partition 0
-        // id-1 partition 0
-        // id-2 partition 2
-        // id-3 partition 2
-        // id-4 partition 0
-        // id-5 partition 0
-        // id-6 partition 0
-        // id-7 partition 2
-        // id-8 partition 0
-        // id-9 partition 2
 
         for (int i = 0; i < 10; i++) {
-            String topic = "first-topic";
-            String value = "hello world " + Integer.toString(i);
-            String key = "id-" + Integer.toString(i);
-
-            log.info("Key: " + key);
-
             // Create a data (producer record)
-            ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
+            ProducerRecord<String, String> record = new ProducerRecord<>("first-topic", "hello world with callback " + Integer.toString(i));
 
             // Send data - async
             producer.send(record, new Callback() {
@@ -57,7 +44,7 @@ public class ProducerDemoKeys {
                         log.error("Error while producing", exception);
                     }
                 }
-            }).get(); // .get() make the send synchronous (don't do this in production)
+            });
 
             // Flush records to kafka
             producer.flush();
