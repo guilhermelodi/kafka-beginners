@@ -29,10 +29,10 @@ public class TwitterProducer {
 
     private final Logger log = LoggerFactory.getLogger(TwitterProducer.class);
 
-    private final String consumerKey = "CSHOSW0V9oBuShlynxLd1nH7A";
-    private final String consumerSecret = "Fm93y6C1QRAU2qyiwEMhURKkOgDJkpXo4x53dbjrU2j53abWsN";
-    private final String token = "1223327471208226816-StLsRiAKI6LBzzmfYVzkUVdu28BdLh";
-    private final String secret = "OuuVN88fcIYGjoTrdTZogsoPP49evamg1zPzQHvyTWpDt";
+    private final String CONSUMER_KEY = "your-consumer-key";
+    private final String CONSUMER_SECRET = "your-consumer-secret";
+    private final String TOKEN = "your-token";
+    private final String SECRET = "your-secret";
 
     List<String> terms = Lists.newArrayList("java", "kafka", "bitcoin", "super bowl", "sport", "virus");
 
@@ -83,7 +83,7 @@ public class TwitterProducer {
 
         hosebirdEndpoint.trackTerms(terms);
 
-        Authentication hosebirdAuth = new OAuth1(consumerKey, consumerSecret, token, secret);
+        Authentication hosebirdAuth = new OAuth1(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, SECRET);
 
         ClientBuilder builder = new ClientBuilder()
                 .name("Hosebird-Client-01")
@@ -96,10 +96,10 @@ public class TwitterProducer {
     }
 
     private KafkaProducer<String, String> createKafkaProducer() {
-        final String bootstrapServers = "localhost:9092";
+        final String BOOTSTRAP_SERVER = "localhost:9092";
 
         Properties properties = new Properties();
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVER);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
