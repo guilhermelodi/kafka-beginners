@@ -32,17 +32,17 @@ public class ElasticSearchConsumer {
 
     public static RestHighLevelClient createClient(){
 
-        final String hostname = "your-hostname-elasticsearch";
-        final String username = "username";
-        final String password = "password";
+        final String HOSTNAME = "your-hostname-elasticsearch";
+        final String USERNAME = "username";
+        final String PASSWORD = "password";
 
         // credentials provider help supply username and password
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY,
-                new UsernamePasswordCredentials(username, password));
+                new UsernamePasswordCredentials(USERNAME, PASSWORD));
 
         RestClientBuilder builder = RestClient.builder(
-                new HttpHost(hostname, 443, "https"))
+                new HttpHost(HOSTNAME, 443, "https"))
                 .setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
 
         return new RestHighLevelClient(builder);
@@ -50,15 +50,15 @@ public class ElasticSearchConsumer {
 
     public static KafkaConsumer<String, String> createConsumer(String topic){
 
-        final String bootstrapServers = "localhost:9092";
-        final String groupId = "kafka-demo-elasticsearch";
+        final String BOOTSTRAP_SERVERS = "localhost:9092";
+        final String GROUP_ID = "kafka-demo-elasticsearch";
 
         // create consumer configs
         final Properties properties = new Properties();
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false"); // disable auto commit of offsets
         properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "100"); // set max poll received records to 100
