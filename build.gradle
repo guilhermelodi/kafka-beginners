@@ -7,7 +7,7 @@ ext {
     slf4jVersion = "1.7.30"
     twitterCoreVersion = "2.2.0"
 
-    projects = ["kafka-basics", "kafka-producer-twitter"]
+    projects = ["kafka-basics", "kafka-producer-twitter", "kafka-consumer-elasticsearch"]
 }
 
 apply plugin: 'java'
@@ -38,5 +38,12 @@ subprojects {
 project(':kafka-producer-twitter') {
     dependencies {
         compile("com.twitter:hbc-core:${twitterCoreVersion}")
+    }
+}
+
+project(':kafka-consumer-elasticsearch') {
+    dependencies {
+        compile("org.elasticsearch.client:elasticsearch-rest-high-level-client:7.4.2")
+        compile("com.google.code.gson:gson:2.8.6")
     }
 }

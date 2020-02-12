@@ -1,4 +1,4 @@
-package kafka.tutorial1;
+package com.github.guilhermelodi.kafka;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.ProducerConfig;
